@@ -1,10 +1,10 @@
 import React from 'react'
-import { CgSpinner } from 'react-icons/cg'
+import { LoaderPinwheelIcon } from 'lucide-react'
 
 const loading = () => {
   return (
     <div className="flex justify-center items-center h-screen">
-      <CgSpinner className="animate-spin text-5xl" />
+      <LoaderPinwheelIcon className="animate-spin text-5xl" />
     </div>
   )
 }
