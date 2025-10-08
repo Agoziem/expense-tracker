@@ -236,6 +236,7 @@ export default function ExpenseTable() {
         id: "select",
         header: ({ table }) => (
           <Checkbox
+            size={"sm"}
             checked={table.getIsAllPageRowsSelected()}
             onCheckedChange={(value) =>
               table.toggleAllPageRowsSelected(!!value)
@@ -244,6 +245,7 @@ export default function ExpenseTable() {
         ),
         cell: ({ row }) => (
           <Checkbox
+            size={"sm"}
             checked={row.getIsSelected()}
             onCheckedChange={(value) => row.toggleSelected(!!value)}
           />
@@ -371,6 +373,8 @@ export default function ExpenseTable() {
           const expense = row.original;
           return (
             <CustomPopover
+              side="bottom"
+              align="end"
               trigger={
                 <Button
                   variant="ghost"
@@ -459,11 +463,10 @@ export default function ExpenseTable() {
         <Card>
           <CardHeader className="py-3 sm:py-3.5">
             <CardTitle className="text-base sm:text-lg">Expenses</CardTitle>
-            <CardToolbar className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 flex-wrap">
+            <CardToolbar className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-2 flex-wrap">
               {/* Add Expense Button - Only show when there are expenses */}
               {expenses.length > 0 && (
                 <Button
-                  size="sm"
                   onClick={openAddDialog}
                   className="gap-1 text-xs sm:text-sm w-full sm:w-auto"
                 >
@@ -513,7 +516,6 @@ export default function ExpenseTable() {
               {selectedCount > 0 && (
                 <Button
                   variant="destructive"
-                  size="sm"
                   onClick={openDeleteMultipleDialog}
                   className="text-xs sm:text-sm w-full sm:w-auto"
                 >
@@ -524,8 +526,9 @@ export default function ExpenseTable() {
             </CardToolbar>
           </CardHeader>
 
-          <CardTable >
-            <div  className="overflow-auto">
+          <CardTable>
+            {/* use ScrollArea and Scroll bar later */}
+            <div className="overflow-auto">
               {!expensesLoading && expenses.length === 0 ? (
                 <Empty className="my-8 sm:my-12">
                   <EmptyHeader>
@@ -555,7 +558,6 @@ export default function ExpenseTable() {
               ) : (
                 <DataGridTable />
               )}
-              {/* <ScrollBar orientation="horizontal" /> */}
             </div>
           </CardTable>
 

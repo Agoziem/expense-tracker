@@ -50,7 +50,7 @@ const LogoutModal = ({ open, handleToggle }: LogoutModalProps) => {
         <AlertDialogDescription>
           Are you sure you want to logout?
         </AlertDialogDescription>
-        <AlertDialogFooter>
+        <AlertDialogFooter className="gap-3">
           <AlertDialogClose>Cancel</AlertDialogClose>
           <AlertDialogAction onClick={Logout} disabled={submitting}>
             {submitting ? <Spinner /> : ""}
