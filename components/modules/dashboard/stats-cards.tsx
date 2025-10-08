@@ -88,7 +88,7 @@ export function StatsCards({
         return (
           <Card
             key={index}
-            className="overflow-hidden hover:shadow-md transition-shadow"
+            className="overflow-hidden hover:shadow-md transition-shadow py-2"
           >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 border-none pb-2">
               <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground">

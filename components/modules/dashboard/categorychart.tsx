@@ -116,8 +116,12 @@ const CategoryChart = () => {
       <Card className="flex flex-col">
         <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center pb-0 justify-between gap-2 py-3">
           <div className="space-y-1">
-            <CardTitle className="text-base sm:text-lg">Spending by Category</CardTitle>
-            <CardDescription className="text-xs sm:text-sm">Breakdown of your expenses</CardDescription>
+            <CardTitle className="text-base sm:text-lg">
+              Spending by Category
+            </CardTitle>
+            <CardDescription className="text-xs sm:text-sm">
+              Breakdown of your expenses
+            </CardDescription>
           </div>
           <DateRangePicker
             date={
@@ -172,7 +176,9 @@ const CategoryChart = () => {
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0 justify-between gap-2 py-3">
-        <CardTitle className="text-base sm:text-lg">Spending by Category</CardTitle>
+        <CardTitle className="text-base sm:text-lg">
+          Spending by Category
+        </CardTitle>
         <CardDescription className="text-xs sm:text-sm text-center">
           {formatCurrency(totalSpending)} across{" "}
           {categoryAnalytics.categories.length} categories
@@ -181,7 +187,7 @@ const CategoryChart = () => {
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square h-full min-h-[230px]"
+          className="mx-auto aspect-square h-full max-h-[270px]"
         >
           <PieChart>
             <ChartTooltip content={<ChartTooltipContent hideLabel />} />

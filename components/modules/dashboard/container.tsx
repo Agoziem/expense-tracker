@@ -11,7 +11,7 @@ const DashboardContainer = () => {
   const [year, setYear] = useState<number>(new Date().getFullYear());
 
   return (
-    <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
+    <div className="p-4 space-y-4 sm:space-y-6">
       <Header month={month} setMonth={setMonth} year={year} setYear={setYear} />
       <StatsCards month={month} year={year} />
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
