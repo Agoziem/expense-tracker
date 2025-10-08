@@ -15,16 +15,16 @@ export function StatsCards({
 
   if (isLoading) {
     return (
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
         {[1, 2, 3, 4].map((i) => (
           <Card key={i} className="overflow-hidden">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 border-none">
-              <Skeleton className="h-4 w-[100px]" />
+              <Skeleton className="h-4 w-[80px] sm:w-[100px]" />
               <Skeleton className="h-4 w-4 rounded" />
             </CardHeader>
-            <div className="px-6 pb-6">
-              <Skeleton className="h-8 w-[120px] mb-1" />
-              <Skeleton className="h-3 w-[80px]" />
+            <div className="px-4 sm:px-6 pb-4 sm:pb-6">
+              <Skeleton className="h-6 sm:h-8 w-[80px] sm:w-[120px] mb-1" />
+              <Skeleton className="h-3 w-[60px] sm:w-[80px]" />
             </div>
           </Card>
         ))}
@@ -82,7 +82,7 @@ export function StatsCards({
   ];
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
       {stats.map((stat, index) => {
         const Icon = stat.icon;
         return (
@@ -90,17 +90,17 @@ export function StatsCards({
             key={index}
             className="overflow-hidden hover:shadow-md transition-shadow"
           >
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 border-none">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 border-none pb-2">
+              <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground">
                 {stat.title}
               </CardTitle>
-              <div className={`p-2 rounded-md ${stat.iconBg}`}>
-                <Icon className={`h-4 w-4 ${stat.iconColor}`} />
+              <div className={`p-1.5 sm:p-2 rounded-md ${stat.iconBg}`}>
+                <Icon className={`h-3 w-3 sm:h-4 sm:w-4 ${stat.iconColor}`} />
               </div>
             </CardHeader>
-            <div className="px-6 pb-6">
-              <div className="text-3xl font-bold">{stat.value}</div>
-              <p className="text-xs text-muted-foreground mt-1">
+            <div className="px-4 sm:px-6 pb-4 sm:pb-6">
+              <div className="text-xl sm:text-2xl lg:text-3xl font-bold truncate">{stat.value}</div>
+              <p className="text-[10px] sm:text-xs text-muted-foreground mt-1 truncate">
                 {stat.description}
               </p>
             </div>

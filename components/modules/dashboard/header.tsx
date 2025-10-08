@@ -22,12 +22,12 @@ const Header = ({
   const { data: userProfile } = useGetUserProfile();
 
   return (
-    <div className="mb-6 flex items-center justify-between">
+    <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
-        <h1 className="mb-1 text-xl font-semibold lg:text-2xl dark:text-white">
+        <h1 className="mb-1 text-lg sm:text-xl lg:text-2xl font-semibold dark:text-white">
           Welcome, {userProfile?.first_name || "User"}
         </h1>
-        <p className="text-muted-foreground text-sm lg:text-base">
+        <p className="text-muted-foreground text-xs sm:text-sm lg:text-base">
           Here&apos;s a summary of your recent financial activities.
         </p>
       </div>
@@ -37,7 +37,7 @@ const Header = ({
           value={month.toString()}
           onValueChange={(value: any) => setMonth(parseInt(value))}
         >
-          <SelectTrigger className="w-[100px]">
+          <SelectTrigger className="w-[100px] sm:w-[120px]">
             <SelectValue placeholder="Month" />
           </SelectTrigger>
           <SelectContent className="max-h-[300px]">
@@ -52,7 +52,7 @@ const Header = ({
           value={year.toString()}
           onValueChange={(value: any) => setYear(parseInt(value))}
         >
-          <SelectTrigger className="w-[100px]">
+          <SelectTrigger className="w-[100px] sm:w-[120px]">
             <SelectValue placeholder="Year" />
           </SelectTrigger>
           <SelectContent className="max-h-[300px]">

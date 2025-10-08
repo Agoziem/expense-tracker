@@ -68,23 +68,23 @@ const DeleteSection = () => {
   return (
     <>
       <Card>
-        <CardHeader className="items-center justify-between py-3">
+        <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-3 gap-2">
           <div>
-            <h2 className="text-xl font-bold text-destructive">
+            <h2 className="text-lg sm:text-xl font-bold text-destructive">
               Delete Account
             </h2>
-            <p className="text-muted-foreground">
+            <p className="text-xs sm:text-sm text-muted-foreground">
               Permanently delete your account and all associated data
             </p>
           </div>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4 sm:space-y-6">
           {/* Warning Alert */}
           <Alert variant="destructive" appearance={"light"} className="mb-4">
             <AlertIcon>
-              <TriangleAlert />
+              <TriangleAlert className="h-4 w-4" />
             </AlertIcon>
-            <AlertDescription>
+            <AlertDescription className="text-xs sm:text-sm">
               <strong>Warning:</strong> This action cannot be undone. All your
               data will be permanently deleted.
             </AlertDescription>
@@ -92,16 +92,16 @@ const DeleteSection = () => {
 
           {/* Account Deletion Information */}
           <div>
-            <h3 className="text-lg font-semibold text-destructive mb-4">
+            <h3 className="text-base sm:text-lg font-semibold text-destructive mb-3 sm:mb-4">
               Account Deletion
             </h3>
 
             <div className="space-y-4">
-              <p className="text-muted-foreground">
+              <p className="text-xs sm:text-sm text-muted-foreground">
                 Before you delete your account, please note that:
               </p>
 
-              <ul className="space-y-2 text-sm text-muted-foreground pl-4">
+              <ul className="space-y-2 text-xs sm:text-sm text-muted-foreground pl-4">
                 <li className="flex items-start space-x-2">
                   <span className="text-destructive mt-1">•</span>
                   <span>

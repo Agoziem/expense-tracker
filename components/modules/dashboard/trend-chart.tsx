@@ -85,15 +85,15 @@ const TrendChart = () => {
   if (isLoading) {
     return (
       <Card>
-        <CardHeader className="items-center py-3">
-          <div className="space-y-2">
-            <Skeleton className="h-6 w-[180px]" />
-            <Skeleton className="h-4 w-[240px]" />
+        <CardHeader className="items-center py-3 space-y-2">
+          <div className="space-y-2 w-full">
+            <Skeleton className="h-5 sm:h-6 w-[140px] sm:w-[180px]" />
+            <Skeleton className="h-3 sm:h-4 w-[180px] sm:w-[240px]" />
           </div>
-          <Skeleton className="h-10 w-[120px]" />
+          <Skeleton className="h-9 sm:h-10 w-[100px] sm:w-[120px]" />
         </CardHeader>
         <CardContent>
-          <Skeleton className="h-[250px] w-full" />
+          <Skeleton className="h-[200px] sm:h-[250px] w-full" />
         </CardContent>
       </Card>
     );
@@ -122,17 +122,17 @@ const TrendChart = () => {
   if (!trendData?.data_points || trendData.data_points.length === 0) {
     return (
       <Card>
-        <CardHeader className="flex items-center justify-between py-3">
+        <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-3 gap-3">
           <div className="space-y-1">
-            <CardTitle>Spending Trends</CardTitle>
-            <CardDescription>Track your spending over time</CardDescription>
+            <CardTitle className="text-base sm:text-lg">Spending Trends</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Track your spending over time</CardDescription>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-full sm:w-auto">
             <Select
               value={limit.toString()}
               onValueChange={(value: any) => setLimit(parseInt(value))}
             >
-              <SelectTrigger className="w-[100px]">
+              <SelectTrigger className="w-[100px] sm:w-[110px]">
                 <SelectValue placeholder="Limit" />
               </SelectTrigger>
               <SelectContent>
@@ -146,7 +146,7 @@ const TrendChart = () => {
               value={period_type}
               onValueChange={(value: any) => setPeriodType(value)}
             >
-              <SelectTrigger className="w-[120px]">
+              <SelectTrigger className="w-[100px] sm:w-[120px]">
                 <SelectValue placeholder="Period" />
               </SelectTrigger>
               <SelectContent>
@@ -183,20 +183,20 @@ const TrendChart = () => {
 
   return (
     <Card>
-      <CardHeader className="py-3">
-        <div className="space-y-1 items-center">
-          <CardTitle>Spending Trends</CardTitle>
-          <CardDescription>
+      <CardHeader className="py-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="space-y-1">
+          <CardTitle className="text-base sm:text-lg">Spending Trends</CardTitle>
+          <CardDescription className="text-xs sm:text-sm">
             Total: {formatCurrency(trendData.total_spending)} across{" "}
             {trendData.total_periods} {period_type}(s)
           </CardDescription>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
           <Select
             value={limit.toString()}
             onValueChange={(value: any) => setLimit(parseInt(value))}
           >
-            <SelectTrigger className="w-[100px]">
+            <SelectTrigger className="w-[100px] sm:w-[110px]">
               <SelectValue placeholder="Limit" />
             </SelectTrigger>
             <SelectContent>
@@ -211,7 +211,7 @@ const TrendChart = () => {
             value={period_type}
             onValueChange={(value: any) => setPeriodType(value)}
           >
-            <SelectTrigger className="w-[120px]">
+            <SelectTrigger className="w-[100px] sm:w-[120px]">
               <SelectValue placeholder="Period" />
             </SelectTrigger>
             <SelectContent>

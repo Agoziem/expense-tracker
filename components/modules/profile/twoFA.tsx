@@ -70,31 +70,31 @@ const TwoFASection = () => {
 
   return (
     <Card>
-      <CardHeader className="items-center justify-between py-3">
+      <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-3 gap-2">
         <div>
-          <h2 className="text-xl font-bold">Verification & 2FA</h2>
-          <p className="text-muted-foreground">
+          <h2 className="text-lg sm:text-xl font-bold">Verification & 2FA</h2>
+          <p className="text-xs sm:text-sm text-muted-foreground">
             Manage your account security settings
           </p>
         </div>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-4 sm:space-y-6">
         {/* Email Verification */}
         <div>
-          <h3 className="text-lg font-semibold text-primary mb-4">
+          <h3 className="text-base sm:text-lg font-semibold text-primary mb-3 sm:mb-4">
             Email Verification
           </h3>
-          <div className="flex items-center justify-between p-4 border rounded-lg">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 sm:p-4 border rounded-lg gap-3">
             <div className="flex items-center space-x-3">
               {user?.is_verified ? (
-                <CheckCircle className="h-5 w-5 text-green-600" />
+                <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
               ) : (
-                <XCircle className="h-5 w-5 text-red-600" />
+                <XCircle className="h-4 w-4 sm:h-5 sm:w-5 text-red-600" />
               )}
               <div>
-                <p className="font-medium">{user.email}</p>
+                <p className="text-sm sm:text-base font-medium break-all">{user.email}</p>
                 <p
-                  className={`text-sm ${
+                  className={`text-xs sm:text-sm ${
                     user?.is_verified ? "text-green-600" : "text-red-600"
                   }`}
                 >
@@ -108,7 +108,7 @@ const TwoFASection = () => {
               {user?.is_verified ? (
                 <Badge
                   variant="outline"
-                  className="bg-green-50 dark:bg-green-700/40 text-green-500 border-green-200 dark:border-green-500/40"
+                  className="bg-green-50 dark:bg-green-700/40 text-green-500 border-green-200 dark:border-green-500/40 text-xs sm:text-sm"
                 >
                   <Verified className="h-3 w-3" />
                   Verified
@@ -117,7 +117,7 @@ const TwoFASection = () => {
                 <div className="space-y-2">
                   <Badge
                     variant="outline"
-                    className="bg-red-50 dark:bg-red-700/40 text-red-500 border-red-200 dark:border-red-500/40"
+                    className="bg-red-50 dark:bg-red-700/40 text-red-500 border-red-200 dark:border-red-500/40 text-xs sm:text-sm"
                   >
                     Not Verified
                   </Badge>
@@ -128,6 +128,7 @@ const TwoFASection = () => {
                       console.log("Verify email clicked");
                       toast.info("Email verification coming soon");
                     }}
+                    className="w-full sm:w-auto text-xs"
                   >
                     Verify Email
                   </Button>
@@ -141,20 +142,20 @@ const TwoFASection = () => {
 
         {/* Two-factor Authentication */}
         <div>
-          <h3 className="text-lg font-semibold text-primary mb-4">
+          <h3 className="text-base sm:text-lg font-semibold text-primary mb-3 sm:mb-4">
             Two-factor Authentication (2FA)
           </h3>
-          <div className="flex items-center justify-between p-4 border rounded-lg">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 sm:p-4 border rounded-lg gap-3">
             <div className="flex items-center space-x-3">
               <ShieldCheck
-                className={`h-5 w-5 ${
+                className={`h-4 w-4 sm:h-5 sm:w-5 ${
                   user?.two_factor_enabled ? "text-green-600" : "text-gray-400"
                 }`}
               />
               <div>
-                <p className="font-medium">2FA Status</p>
+                <p className="text-sm sm:text-base font-medium">2FA Status</p>
                 <p
-                  className={`text-sm ${
+                  className={`text-xs sm:text-sm ${
                     user?.two_factor_enabled
                       ? "text-green-600"
                       : "text-muted-foreground"
@@ -171,29 +172,29 @@ const TwoFASection = () => {
               open={open2FAModal}
               onOpenChange={setOpen2FAModal}
               trigger={
-                <div>
+                <div className="w-full sm:w-auto">
                   {user?.two_factor_enabled ? (
-                    <div className="flex flex-col space-y-2">
+                    <div className="flex flex-col space-y-2 w-full">
                       <Badge
                         variant="outline"
-                        className="bg-green-50 dark:bg-green-700/40 text-green-500 border-green-200 dark:border-green-500/40 cursor-pointer"
+                        className="bg-green-50 dark:bg-green-700/40 text-green-500 border-green-200 dark:border-green-500/40 cursor-pointer text-xs sm:text-sm"
                       >
                         <ShieldCheck className="h-3 w-3" />
                         Enabled
                       </Badge>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="w-full text-xs">
                         Disable 2FA
                       </Button>
                     </div>
                   ) : (
-                    <div className="flex flex-col space-y-2">
+                    <div className="flex flex-col space-y-2 w-full">
                       <Badge
                         variant="outline"
-                        className="bg-red-50 dark:bg-red-700/40 text-red-500 border-red-200 dark:border-red-500/40 cursor-pointer"
+                        className="bg-red-50 dark:bg-red-700/40 text-red-500 border-red-200 dark:border-red-500/40 cursor-pointer text-xs sm:text-sm"
                       >
                         Disabled
                       </Badge>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="w-full text-xs">
                         Enable 2FA
                       </Button>
                     </div>

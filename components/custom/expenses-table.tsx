@@ -262,11 +262,11 @@ export default function ExpenseTable() {
         cell: ({ row }) => {
           return (
             <div className="space-y-1">
-              <div className="font-medium text-foreground">
+              <div className="font-medium text-foreground text-xs sm:text-sm">
                 {row.original.title}
               </div>
               {row.original.description && (
-                <div className="text-xs text-muted-foreground line-clamp-1">
+                <div className="text-[10px] sm:text-xs text-muted-foreground line-clamp-1">
                   {row.original.description}
                 </div>
               )}
@@ -297,7 +297,7 @@ export default function ExpenseTable() {
           />
         ),
         cell: ({ row }) => (
-          <div className="font-semibold text-foreground">
+          <div className="font-semibold text-foreground text-xs sm:text-sm">
             {formatCurrency(row.original.amount)}
           </div>
         ),
@@ -321,7 +321,7 @@ export default function ExpenseTable() {
         ),
         cell: ({ row }) => {
           return (
-            <Badge className={getCategoryColor(row.original.category)}>
+            <Badge className={`${getCategoryColor(row.original.category)} text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1`}>
               {row.original.category}
             </Badge>
           );
@@ -345,7 +345,7 @@ export default function ExpenseTable() {
           />
         ),
         cell: ({ row }) => (
-          <div className="text-sm text-muted-foreground">
+          <div className="text-xs sm:text-sm text-muted-foreground">
             {formatDate(row.original.expense_date)}
           </div>
         ),
@@ -365,25 +365,25 @@ export default function ExpenseTable() {
           return (
             <CustomPopover
               trigger={
-                <Button variant="ghost" size="sm">
-                  <MoreVertical className="h-4 w-4" />
+                <Button variant="ghost" size="sm" className="h-7 w-7 sm:h-8 sm:w-8 p-0">
+                  <MoreVertical className="h-3 w-3 sm:h-4 sm:w-4" />
                 </Button>
               }
-              contentClassName="w-48 p-1"
+              contentClassName="w-40 sm:w-48 p-1"
             >
               <div className="space-y-1">
                 <button
                   onClick={() => openEditDialog(expense)}
-                  className="flex items-center w-full px-3 py-2 text-sm rounded-sm hover:bg-accent hover:text-accent-foreground"
+                  className="flex items-center w-full px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm rounded-sm hover:bg-accent hover:text-accent-foreground"
                 >
-                  <Edit className="mr-2 h-4 w-4" />
+                  <Edit className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                   Edit
                 </button>
                 <button
                   onClick={() => openDeleteDialog(expense.id)}
-                  className="flex items-center w-full px-3 py-2 text-sm rounded-sm text-destructive hover:bg-destructive/10"
+                  className="flex items-center w-full px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm rounded-sm text-destructive hover:bg-destructive/10"
                 >
-                  <Trash2 className="mr-2 h-4 w-4" />
+                  <Trash2 className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                   Delete
                 </button>
               </div>
@@ -446,32 +446,32 @@ export default function ExpenseTable() {
         }}
       >
         <Card>
-          <CardHeader className="py-3.5">
-            <CardTitle>Expenses</CardTitle>
-            <CardToolbar className="flex items-center gap-2 flex-wrap">
+          <CardHeader className="py-3 sm:py-3.5">
+            <CardTitle className="text-base sm:text-lg">Expenses</CardTitle>
+            <CardToolbar className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 flex-wrap">
               {/* Add Expense Button - Only show when there are expenses */}
               {expenses.length > 0 && (
-                <Button size="sm" onClick={openAddDialog} className="gap-1">
-                  <Plus className="h-4 w-4" />
+                <Button size="sm" onClick={openAddDialog} className="gap-1 text-xs sm:text-sm w-full sm:w-auto">
+                  <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
                   Add Expense
                 </Button>
               )}
 
               {/* Search Input */}
-              <div className="relative w-64">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <div className="relative w-full sm:w-64">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
                 <Input
                   placeholder="Search expenses..."
                   value={searchQuery}
                   onChange={(e) => handleSearch(e.target.value)}
-                  className="pl-9 pr-9 h-9"
+                  className="pl-9 pr-9 h-9 text-xs sm:text-sm"
                 />
                 {searchQuery && (
                   <button
                     onClick={() => handleSearch("")}
                     className="absolute right-3 top-1/2 -translate-y-1/2"
                   >
-                    <X className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+                    <X className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground hover:text-foreground" />
                   </button>
                 )}
               </div>
@@ -481,7 +481,7 @@ export default function ExpenseTable() {
                 value={selectedCategory}
                 onValueChange={handleCategoryFilter}
               >
-                <SelectTrigger className="w-[160px] h-10">
+                <SelectTrigger className="w-full sm:w-[160px] h-9 sm:h-10 text-xs sm:text-sm">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
                 <SelectContent className="max-h-[300px]">
@@ -500,8 +500,9 @@ export default function ExpenseTable() {
                   variant="destructive"
                   size="sm"
                   onClick={openDeleteMultipleDialog}
+                  className="text-xs sm:text-sm w-full sm:w-auto"
                 >
-                  <Trash2 className="mr-2 h-4 w-4" />
+                  <Trash2 className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                   Delete ({selectedCount})
                 </Button>
               )}
@@ -510,13 +511,13 @@ export default function ExpenseTable() {
           <CardTable>
             <ScrollArea>
               {!expensesLoading && expenses.length === 0 ? (
-                <Empty className="my-12">
+                <Empty className="my-8 sm:my-12">
                   <EmptyHeader>
                     <EmptyMedia variant="icon">
-                      <Receipt className="h-6 w-6" />
+                      <Receipt className="h-5 w-5 sm:h-6 sm:w-6" />
                     </EmptyMedia>
-                    <EmptyTitle>No Expenses Found</EmptyTitle>
-                    <EmptyDescription>
+                    <EmptyTitle className="text-sm sm:text-base">No Expenses Found</EmptyTitle>
+                    <EmptyDescription className="text-xs sm:text-sm">
                       {searchQuery || selectedCategory !== "all"
                         ? "Try adjusting your search or filters"
                         : "Start tracking your expenses by adding your first expense"}
@@ -525,9 +526,9 @@ export default function ExpenseTable() {
                       <Button
                         size="md"
                         onClick={openAddDialog}
-                        className="gap-1"
+                        className="gap-1 text-xs sm:text-sm w-full sm:w-auto"
                       >
-                        <Plus className="h-4 w-4" />
+                        <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
                         Add Expense
                       </Button>
                     </EmptyContent>

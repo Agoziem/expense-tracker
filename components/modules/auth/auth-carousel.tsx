@@ -58,7 +58,7 @@ export function AuthCarousel({
       </div>
 
       {/* Indicators */}
-      <div className="absolute bottom-8 left-8 flex space-x-2">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 sm:bottom-8 sm:left-8 sm:translate-x-0 flex space-x-2">
         {images.map((_, index) => (
           <button
             key={index}

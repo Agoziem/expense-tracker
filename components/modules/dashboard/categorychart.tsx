@@ -69,12 +69,12 @@ const CategoryChart = () => {
     return (
       <Card className="flex flex-col">
         <CardHeader className="items-center py-3">
-          <Skeleton className="h-6 w-[180px]" />
-          <Skeleton className="h-4 w-[240px] mt-2" />
+          <Skeleton className="h-5 sm:h-6 w-[140px] sm:w-[180px]" />
+          <Skeleton className="h-3 sm:h-4 w-[180px] sm:w-[240px] mt-2" />
         </CardHeader>
         <CardContent className="flex-1 pb-0">
-          <div className="mx-auto aspect-square max-h-[300px] flex items-center justify-center">
-            <Skeleton className="h-[250px] w-[250px] rounded-full" />
+          <div className="mx-auto aspect-square max-h-[250px] sm:max-h-[300px] flex items-center justify-center">
+            <Skeleton className="h-[200px] w-[200px] sm:h-[250px] sm:w-[250px] rounded-full" />
           </div>
         </CardContent>
         <CardFooter className="flex-col gap-2 text-sm py-3">
@@ -112,10 +112,10 @@ const CategoryChart = () => {
   ) {
     return (
       <Card className="flex flex-col">
-        <CardHeader className="flex flex-row items-center pb-0 justify-between gap-2 py-3">
+        <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center pb-0 justify-between gap-2 py-3">
           <div className="space-y-1">
-            <CardTitle>Spending by Category</CardTitle>
-            <CardDescription>Breakdown of your expenses</CardDescription>
+            <CardTitle className="text-base sm:text-lg">Spending by Category</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Breakdown of your expenses</CardDescription>
           </div>
           <DateRangePicker
             date={
@@ -170,8 +170,8 @@ const CategoryChart = () => {
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0 justify-between gap-2 py-3">
-        <CardTitle>Spending by Category</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-base sm:text-lg">Spending by Category</CardTitle>
+        <CardDescription className="text-xs sm:text-sm text-center">
           {formatCurrency(totalSpending)} across{" "}
           {categoryAnalytics.categories.length} categories
         </CardDescription>
@@ -179,7 +179,7 @@ const CategoryChart = () => {
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
+          className="mx-auto aspect-square max-h-[200px] sm:max-h-[250px]"
         >
           <PieChart>
             <ChartTooltip content={<ChartTooltipContent hideLabel />} />
@@ -204,14 +204,14 @@ const CategoryChart = () => {
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-foreground text-2xl font-bold"
+                          className="fill-foreground text-xl sm:text-2xl font-bold"
                         >
                           {formatCurrency(totalSpending)}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 22}
-                          className="fill-muted-foreground text-xs"
+                          className="fill-muted-foreground text-[10px] sm:text-xs"
                         >
                           Total Spending
                         </tspan>
@@ -224,7 +224,7 @@ const CategoryChart = () => {
           </PieChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm py-3">
+      <CardFooter className="flex-col gap-2 text-xs sm:text-sm py-3">
         <div className="flex items-center gap-2 font-medium leading-none">
           Top category: {topCategory?.category}{" "}
           <span className="text-muted-foreground">
