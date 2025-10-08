@@ -54,6 +54,7 @@ export default function AvatarDropdownComponent({
               <AvatarImage
                 src={userProfile?.avatar || undefined}
                 alt={`${userProfile?.first_name} ${userProfile?.last_name}`}
+                className="object-cover object-top"
               />
               <AvatarFallback>
                 {userProfile?.first_name
