@@ -184,7 +184,7 @@ export const useFileUpload = (options: FileUploadOptions = {}): [FileUploadState
 
           // Skip duplicate files silently
           if (isDuplicate) {
-            return;
+            continue;
           }
         }
 

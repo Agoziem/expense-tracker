@@ -14,20 +14,18 @@ export const optionalUrlSchema = z.union([
 ]);
 
 // Custom validation function
-export const imageSchema = z
-  .union([
-    z
-      .instanceof(File)
-      .refine((file) => ALLOWED_FILE_TYPES.includes(file.type), {
-        message: "Only .jpg, .jpeg, and .png files are allowed",
-      })
-      .refine((file) => file.size <= MAX_IMAGE_SIZE, {
-          message: "File size must not exceed 5 MB",
-        }),
-      z.string(),
-      z.null(),
-    ])
-    .optional();
+export const imageSchema = z.union([
+  z
+    .instanceof(File)
+    .refine((file) => ALLOWED_FILE_TYPES.includes(file.type), {
+      message: "Only .jpg, .jpeg, and .png files are allowed",
+    })
+    .refine((file) => file.size <= MAX_IMAGE_SIZE, {
+      message: "File size must not exceed 5 MB",
+    }),
+  z.string(),
+  z.null(),
+]);
 
 // Resuable optional number schema
 export const optionalNumberSchema = z

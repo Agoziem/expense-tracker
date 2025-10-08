@@ -154,18 +154,8 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ className }) => {
                         <FormLabel className="mb-2">Profile Photo</FormLabel>
                         <FormControl>
                           <AvatarUploader
-                            onFileChange={(file) => {
-                              // Store the actual File object in the form state
-                              field.onChange(file || null);
-                            }}
-                            defaultAvatar={
-                              // Handle both File objects and string URLs
-                              typeof field.value === "string" 
-                                ? field.value 
-                                : field.value instanceof File
-                                ? URL.createObjectURL(field.value)
-                                : ""
-                            }
+                            value={field.value}
+                            onChange={field.onChange}
                           />
                         </FormControl>
                         <FormMessage />

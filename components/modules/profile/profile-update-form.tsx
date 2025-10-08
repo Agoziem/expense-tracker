@@ -93,13 +93,19 @@ const ProfileUpdateForm: React.FC<ProfileUpdateFormProps> = ({ className }) => {
     setUpdating(true);
     try {
       const updatedData = { ...data };
+      
+      // Handle avatar upload - check if it's a File object
       if (updatedData.avatar && updatedData.avatar instanceof File) {
         // Upload the new avatar file
         const uploadResponse = await uploadFile(updatedData.avatar);
         updatedData.avatar = uploadResponse.url;
       } else if (updatedData.avatar === null) {
         updatedData.avatar = "";
+      } else if (typeof updatedData.avatar === 'string') {
+        // Keep the existing URL as is
+        updatedData.avatar = updatedData.avatar;
       }
+      
       console.log("Submitting updated profile data:", updatedData);
       await updateUser(updatedData);
       toast.success("Profile updated successfully!");
@@ -145,18 +151,8 @@ const ProfileUpdateForm: React.FC<ProfileUpdateFormProps> = ({ className }) => {
                     <FormLabel className="mb-2">Profile Photo</FormLabel>
                     <FormControl>
                       <AvatarUploader
-                        onFileChange={(file) => {
-                          // Store the actual File object in the form state
-                          field.onChange(file || null);
-                        }}
-                        defaultAvatar={
-                          // Handle both File objects and string URLs
-                          typeof field.value === "string"
-                            ? field.value
-                            : field.value instanceof File
-                            ? URL.createObjectURL(field.value)
-                            : ""
-                        }
+                        value={field.value || ""}
+                        onChange={field.onChange}
                       />
                     </FormControl>
                     <FormMessage />
