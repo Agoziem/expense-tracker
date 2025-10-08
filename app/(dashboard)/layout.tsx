@@ -1,6 +1,6 @@
 "use client";
-import Navbar from "@/components/layouts/navbar";
-import AppSidebar from "@/components/layouts/sidebar";
+import Navbar from "@/components/layouts/navbar/navbar";
+import AppSidebar from "@/components/layouts/sidebar/sidebar";
 import { ScrollArea } from "@/components/ui/base-scroll-area";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import React from "react";

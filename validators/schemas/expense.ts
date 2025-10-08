@@ -6,14 +6,19 @@ import { z } from "zod";
 export const ExpenseCategoryEnum = z.enum([
   "Food",
   "Transport",
+  "Rent",
+  "Groceries",
+  "Utilities",
   "Entertainment",
-  "Shopping",
-  "Bills",
   "Healthcare",
   "Education",
+  "Shopping",
+  "Savings",
+  "FoodStuff",
   "Travel",
-  "Other"
+  "Others"
 ]);
+
 
 export type ExpenseCategory = z.infer<typeof ExpenseCategoryEnum>;
 
@@ -28,41 +33,20 @@ export const ExpenseCreateSchema = z.object({
     .max(100, "Title must be 100 characters or less"),
   amount: z.string()
     .min(1, "Amount is required")
-    .transform((val) => parseFloat(val))
-    .refine((val) => !isNaN(val) && val > 0, {
+    .refine((val) => !isNaN(parseFloat(val)) && parseFloat(val) > 0, {
       message: "Amount must be a positive number"
     }),
   category: ExpenseCategoryEnum,
   description: z.string()
-    .max(500, "Description must be 500 characters or less")
-    .optional()
-    .or(z.literal("")),
+    .min(1, "Description is required")
+    .max(500, "Description must be 500 characters or less"),
   expense_date: z.string()
-    .optional()
-    .transform((val) => val ? new Date(val) : new Date())
+    .min(1, "Date is required"),
 });
 
 export type ExpenseCreateType = z.infer<typeof ExpenseCreateSchema>;
 
-export const ExpenseUpdateSchema = z.object({
-  title: z.string()
-    .min(1, "Title is required")
-    .max(100, "Title must be 100 characters or less")
-    .optional(),
-  amount: z.string()
-    .optional()
-    .transform((val) => val ? parseFloat(val) : undefined)
-    .refine((val) => val === undefined || (!isNaN(val) && val > 0), {
-      message: "Amount must be a positive number"
-    }),
-  category: ExpenseCategoryEnum.optional(),
-  description: z.string()
-    .max(500, "Description must be 500 characters or less")
-    .optional()
-    .or(z.literal("")),
-  expense_date: z.string()
-    .optional()
-    .transform((val) => val ? new Date(val) : undefined)
-});
+
+export const ExpenseUpdateSchema = ExpenseCreateSchema.partial();
 
 export type ExpenseUpdateType = z.infer<typeof ExpenseUpdateSchema>;

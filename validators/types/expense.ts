@@ -2,15 +2,24 @@
 // Expense Category Type
 // ===============================================
 export type ExpenseCategory = 
-  | "Food"
-  | "Transport"
-  | "Entertainment"
-  | "Shopping"
-  | "Bills"
-  | "Healthcare"
-  | "Education"
-  | "Travel"
-  | "Other";
+  "Food"
+|  "Transport"
+|  "Rent"
+|  "Groceries"
+|  "Utilities"
+|  "Entertainment"
+|  "Healthcare"
+|  "Education"
+|  "Shopping"
+|  "Savings"
+|  "FoodStuff"
+|  "Travel"
+|  "Others"
+
+export type ExpenseCategoriesResponse = {
+  categories: ExpenseCategory[];
+  total: number;
+}
 
 
 // ===============================================
@@ -130,6 +139,11 @@ export interface ExpenseListQueryParams {
 export interface ExpenseStatisticsQuery {
   start_date?: string;
   end_date?: string;
+}
+
+export interface TrendChartQuery {
+  period_type: "day" | "week" | "month" | "year";
+  limit: number;
 }
 
 

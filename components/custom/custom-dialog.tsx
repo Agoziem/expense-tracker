@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 import {
   Dialog,
   DialogContent,
@@ -11,8 +11,9 @@ import {
   DialogTrigger,
   DialogClose,
   DialogAction,
-} from '@/components/ui/base-dialog';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/base-dialog";
+import { cn } from "@/lib/utils";
+import { Spinner } from "../ui/spinner";
 
 export interface CustomDialogProps {
   trigger?: React.ReactNode;
@@ -61,7 +62,7 @@ export interface StandardDialogProps {
   onOpenChange?: (open: boolean) => void;
   showDismissButton?: boolean;
   className?: string;
-  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  size?: "sm" | "md" | "lg" | "xl" | "full";
 }
 
 export function StandardDialog({
@@ -74,14 +75,14 @@ export function StandardDialog({
   onOpenChange,
   showDismissButton = true,
   className,
-  size = 'md',
+  size = "md",
 }: StandardDialogProps) {
   const sizeClasses = {
-    sm: 'max-w-sm',
-    md: 'max-w-md',
-    lg: 'max-w-lg',
-    xl: 'max-w-xl',
-    full: 'max-w-full mx-4',
+    sm: "max-w-sm",
+    md: "max-w-md",
+    lg: "max-w-lg",
+    xl: "max-w-xl",
+    full: "max-w-full mx-4",
   };
 
   return (
@@ -111,7 +112,7 @@ export interface ConfirmDialogProps {
   onCancel?: () => void;
   confirmText?: string;
   cancelText?: string;
-  variant?: 'danger' | 'warning' | 'default';
+  variant?: "danger" | "warning" | "default";
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   loading?: boolean;
@@ -123,9 +124,9 @@ export function ConfirmDialog({
   description,
   onConfirm,
   onCancel,
-  confirmText = 'Confirm',
-  cancelText = 'Cancel',
-  variant = 'default',
+  confirmText = "Confirm",
+  cancelText = "Cancel",
+  variant = "default",
   open,
   onOpenChange,
   loading = false,
@@ -155,12 +156,22 @@ export function ConfirmDialog({
             onClick={handleConfirm}
             disabled={loading}
             className={cn(
-              variant === 'danger' && 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-              variant === 'warning' && 'bg-orange-500 text-white hover:bg-orange-600',
-              variant === 'default' && 'bg-primary text-primary-foreground hover:bg-primary/90'
+              variant === "danger" &&
+                "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+              variant === "warning" &&
+                "bg-orange-500 text-white hover:bg-orange-600",
+              variant === "default" &&
+                "bg-primary text-primary-foreground hover:bg-primary/90"
             )}
           >
-            {loading ? 'Loading...' : confirmText}
+            {loading ? (
+              <>
+                <Spinner />
+                Loading...
+              </>
+            ) : (
+              confirmText
+            )}
           </DialogAction>
         </DialogFooter>
       </DialogContent>
@@ -182,7 +193,7 @@ export interface FormDialogProps {
   onOpenChange?: (open: boolean) => void;
   loading?: boolean;
   disabled?: boolean;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: "sm" | "md" | "lg" | "xl";
 }
 
 export function FormDialog({
@@ -192,13 +203,13 @@ export function FormDialog({
   children,
   onSubmit,
   onCancel,
-  submitText = 'Submit',
-  cancelText = 'Cancel',
+  submitText = "Submit",
+  cancelText = "Cancel",
   open,
   onOpenChange,
   loading = false,
   disabled = false,
-  size = 'md',
+  size = "md",
 }: FormDialogProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -211,10 +222,10 @@ export function FormDialog({
   };
 
   const sizeClasses = {
-    sm: 'max-w-sm',
-    md: 'max-w-md',
-    lg: 'max-w-lg',
-    xl: 'max-w-xl',
+    sm: "max-w-sm",
+    md: "max-w-md",
+    lg: "max-w-lg",
+    xl: "max-w-xl",
   };
 
   return (
@@ -224,13 +235,15 @@ export function FormDialog({
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
-            {description && <DialogDescription>{description}</DialogDescription>}
+            {description && (
+              <DialogDescription>{description}</DialogDescription>
+            )}
           </DialogHeader>
           <div className="py-4">{children}</div>
           <DialogFooter>
-            <DialogClose 
-              type="button" 
-              onClick={handleCancel} 
+            <DialogClose
+              type="button"
+              onClick={handleCancel}
               disabled={loading}
             >
               {cancelText}
@@ -240,7 +253,7 @@ export function FormDialog({
               disabled={loading || disabled}
               className="bg-primary text-primary-foreground hover:bg-primary/90"
             >
-              {loading ? 'Loading...' : submitText}
+              {loading ? "Loading..." : submitText}
             </DialogAction>
           </DialogFooter>
         </form>
@@ -257,7 +270,7 @@ export interface AlertDialogProps {
   children?: React.ReactNode;
   onClose?: () => void;
   closeText?: string;
-  variant?: 'info' | 'success' | 'warning' | 'error';
+  variant?: "info" | "success" | "warning" | "error";
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
@@ -268,8 +281,8 @@ export function AlertDialog({
   description,
   children,
   onClose,
-  closeText = 'OK',
-  variant = 'info',
+  closeText = "OK",
+  variant = "info",
   open,
   onOpenChange,
 }: AlertDialogProps) {
@@ -279,17 +292,17 @@ export function AlertDialog({
   };
 
   const variantStyles = {
-    info: 'border-blue-200',
-    success: 'border-green-200',
-    warning: 'border-orange-200',
-    error: 'border-red-200',
+    info: "border-blue-200",
+    success: "border-green-200",
+    warning: "border-orange-200",
+    error: "border-red-200",
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       {trigger && <DialogTrigger>{trigger}</DialogTrigger>}
-      <DialogContent 
-        className={cn('max-w-md', variantStyles[variant])}
+      <DialogContent
+        className={cn("max-w-md", variantStyles[variant])}
         showDismissButton={false}
       >
         <DialogHeader>
@@ -298,7 +311,7 @@ export function AlertDialog({
         </DialogHeader>
         {children && <div className="py-4">{children}</div>}
         <DialogFooter>
-          <DialogAction 
+          <DialogAction
             onClick={handleClose}
             className="bg-primary text-primary-foreground hover:bg-primary/90 w-full"
           >

@@ -21,7 +21,9 @@ import {
     ExpenseCreateResponse,
     ExpenseUpdateResponse,
     ExpenseListQueryParams,
-    ExpenseStatisticsQuery
+    ExpenseStatisticsQuery,
+    TrendChartQuery,
+    ExpenseCategoriesResponse
 } from "@/validators/types/expense";
 
 // POST /api/v1/expenses/ - Create a new expense
@@ -132,7 +134,7 @@ export const useGetMonthlyStatistics = (year: number, month: number, enabled = t
 };
 
 // GET /api/v1/expenses/analytics/visualization - Get data for time-series visualization/charts
-export const useGetVisualizationData = (params?: ExpenseStatisticsQuery) => {
+export const useGetVisualizationData = (params?: TrendChartQuery) => {
   return useQuery<ChartVisualizationResponseModel, Error>({
     queryKey: ["expense-analytics", "visualization", params],
     queryFn: async () => {
@@ -155,7 +157,7 @@ export const useGetCategoryChartData = (params?: ExpenseStatisticsQuery) => {
 
 // GET /api/v1/expenses/categories/list - Get all available categories
 export const useGetExpenseCategories = () => {
-  return useQuery<ExpenseCategory[], Error>({
+  return useQuery<ExpenseCategoriesResponse, Error>({
     queryKey: ["expense-categories"],
     queryFn: async () => {
       const response = await AxiosInstanceWithToken.get("/api/v1/expenses/categories/list");

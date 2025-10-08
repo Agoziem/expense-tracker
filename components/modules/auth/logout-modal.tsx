@@ -13,8 +13,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useLogout } from "@/data/endpoints/auth";
-import SubmissionButton from '@/components/custom/submission-button';
 import { LogOut } from 'lucide-react';
+import { Spinner } from '@/components/ui/spinner';
 
 type LogoutModalProps = {
   open: boolean;
@@ -52,8 +52,9 @@ const LogoutModal = ({ open, handleToggle }: LogoutModalProps) => {
         </AlertDialogDescription>
         <AlertDialogFooter>
           <AlertDialogClose>Cancel</AlertDialogClose>
-          <AlertDialogAction onClick={Logout}>
-            <SubmissionButton isSubmitting={submitting} label="Logout" />
+          <AlertDialogAction onClick={Logout} disabled={submitting}>
+            {submitting ? <Spinner /> : ""}
+            {submitting ? "Logging out..." : "Logout"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

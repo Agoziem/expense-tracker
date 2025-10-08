@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ScrollArea, ScrollBar } from "@/components/ui/base-scroll-area";
+import { ScrollArea } from "@/components/ui/base-scroll-area";
 import {
-  Command,
-  CommandList,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/base-popover";
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxIcon,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxItemIndicator,
+  ComboboxList,
+  ComboboxSeparator,
+  ComboboxTrigger,
+  ComboboxValue,
+} from "@/components/ui/base-combobox";
 import { cn } from "@/lib/utils";
 
 // Import JSON data directly
@@ -125,8 +124,8 @@ const LocationSelector = ({
   const [selectedState, setSelectedState] = useState<StateProps | null>(() =>
     findState(defaultState, findCountry(defaultCountry)?.id)
   );
-  const [openCountryDropdown, setOpenCountryDropdown] = useState(false);
-  const [openStateDropdown, setOpenStateDropdown] = useState(false);
+  const [countrySearchValue, setCountrySearchValue] = useState("");
+  const [stateSearchValue, setStateSearchValue] = useState("");
 
   // Update internal state when default props change
   useEffect(() => {
@@ -143,15 +142,33 @@ const LocationSelector = ({
     (state) => state.country_id === selectedCountry?.id
   );
 
+  // Filter countries based on search
+  const filteredCountries = React.useMemo(() => {
+    if (!countrySearchValue) return countriesData;
+    return countriesData.filter((country) =>
+      country.name.toLowerCase().includes(countrySearchValue.toLowerCase())
+    );
+  }, [countrySearchValue]);
+
+  // Filter states based on search
+  const filteredStates = React.useMemo(() => {
+    if (!stateSearchValue) return availableStates;
+    return availableStates.filter((state) =>
+      state.name.toLowerCase().includes(stateSearchValue.toLowerCase())
+    );
+  }, [availableStates, stateSearchValue]);
+
   const handleCountrySelect = (country: CountryProps | null) => {
     setSelectedCountry(country);
     setSelectedState(null); // Reset state when country changes
+    setCountrySearchValue(""); // Reset search
     onCountryChange?.(country);
     onStateChange?.(null);
   };
 
   const handleStateSelect = (state: StateProps | null) => {
     setSelectedState(state);
+    setStateSearchValue(""); // Reset search
     onStateChange?.(state);
   };
 
@@ -162,119 +179,143 @@ const LocationSelector = ({
       }`}
     >
       {/* Country Selector */}
-      <Popover open={openCountryDropdown} onOpenChange={setOpenCountryDropdown}>
-        <PopoverTrigger>
-          <Button
-            variant="outline"
-            role="combobox"
-            aria-expanded={openCountryDropdown}
-            disabled={disabled}
-            className="w-full justify-between h-10"
-          >
-            {selectedCountry ? (
-              <div className="flex items-center gap-2">
-                <span>{selectedCountry.emoji}</span>
-                <span>{selectedCountry.name}</span>
-              </div>
-            ) : (
-              <span>Select Country...</span>
-            )}
-            <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="p-0">
-          <Command>
-            <CommandInput placeholder="Search country..." />
-            <ScrollArea className="h-[300px]">
-              <CommandList className="overflow-hidden my-1">
-                <CommandEmpty>No country found.</CommandEmpty>
-                <CommandGroup>
-                  {countriesData.map((country) => (
-                    <CommandItem
-                      key={country.id}
-                      value={country.name}
-                      onSelect={() => {
-                        handleCountrySelect(country);
-                        setOpenCountryDropdown(false);
-                      }}
-                      className="flex cursor-pointer items-center justify-between text-sm"
-                    >
+      <Combobox
+        items={filteredCountries}
+        value={selectedCountry?.name || ""}
+        onValueChange={(countryName) => {
+          const country = countriesData.find((c) => c.name === countryName);
+          handleCountrySelect(country || null);
+        }}
+      >
+        <div className="relative">
+          <ComboboxTrigger
+            render={
+              <Button
+                variant="outline"
+                mode="input"
+                className={cn(
+                  "w-full justify-between h-10",
+                  disabled && "opacity-50 pointer-events-none"
+                )}
+                disabled={disabled}
+              >
+                <ComboboxValue>
+                  {(value: string) => {
+                    const country = countriesData.find((c) => c.name === value);
+                    return country ? (
                       <div className="flex items-center gap-2">
                         <span>{country.emoji}</span>
                         <span>{country.name}</span>
                       </div>
-                      <Check
-                        className={cn(
-                          "h-4 w-4",
-                          selectedCountry?.id === country.id
-                            ? "opacity-100"
-                            : "opacity-0"
-                        )}
-                      />
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              </CommandList>
-              <ScrollBar orientation="vertical" />
-            </ScrollArea>
-          </Command>
-        </PopoverContent>
-      </Popover>
+                    ) : (
+                      <span className="text-muted-foreground">Select Country...</span>
+                    );
+                  }}
+                </ComboboxValue>
+                <ComboboxIcon />
+              </Button>
+            }
+          />
+        </div>
+        <ComboboxContent className="w-[300px] overflow-hidden">
+          <ComboboxInput
+            placeholder="Search country..."
+            value={countrySearchValue}
+            onChange={(e) => setCountrySearchValue(e.target.value)}
+            className={cn([
+              "border-0 shadow-none rounded-none",
+              "focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-border",
+            ])}
+          />
+          <ComboboxSeparator />
+          <ComboboxEmpty className="text-center px-2 pt-4 pb-2">
+            No country found.
+          </ComboboxEmpty>
+          <ScrollArea className="h-[300px]">
+            <ComboboxList className="overflow-hidden my-1">
+              {filteredCountries.map((country) => (
+                <ComboboxItem
+                  key={country.id}
+                  value={country.name}
+                  className="flex items-center gap-2 ps-3 pe-8"
+                >
+                  <span>{country.emoji}</span>
+                  <span className="flex-1 text-sm">{country.name}</span>
+                  <ComboboxItemIndicator className="start-auto end-2.5" />
+                </ComboboxItem>
+              ))}
+            </ComboboxList>
+          </ScrollArea>
+        </ComboboxContent>
+      </Combobox>
 
       {/* State Selector - Only shown if selected country has states */}
       {availableStates.length > 0 && (
-        <Popover open={openStateDropdown} onOpenChange={setOpenStateDropdown}>
-          <PopoverTrigger>
-            <Button
-              variant="outline"
-              role="combobox"
-              aria-expanded={openStateDropdown}
-              disabled={!selectedCountry}
-              className="w-full justify-between h-10"
-            >
-              {selectedState ? (
-                <span>{selectedState.name}</span>
-              ) : (
-                <span>Select State...</span>
-              )}
-              <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="p-0">
-            <Command>
-              <CommandInput placeholder="Search state..." />
-              <ScrollArea className="h-[300px]">
-                <CommandList className="overflow-hidden my-1">
-                  <CommandEmpty>No state found.</CommandEmpty>
-                  <CommandGroup>
-                    {availableStates.map((state) => (
-                      <CommandItem
-                        key={state.id}
-                        value={state.name}
-                        onSelect={() => {
-                          handleStateSelect(state);
-                          setOpenStateDropdown(false);
-                        }}
-                        className="flex cursor-pointer items-center justify-between text-sm"
-                      >
+        <Combobox
+          items={filteredStates}
+          value={selectedState?.name || ""}
+          onValueChange={(stateName) => {
+            const state = availableStates.find((s) => s.name === stateName);
+            handleStateSelect(state || null);
+          }}
+        >
+          <div className="relative">
+            <ComboboxTrigger
+              render={
+                <Button
+                  variant="outline"
+                  mode="input"
+                  className={cn(
+                    "w-full justify-between h-10",
+                    !selectedCountry && "opacity-50 pointer-events-none"
+                  )}
+                  disabled={!selectedCountry}
+                >
+                  <ComboboxValue>
+                    {(value: string) => {
+                      const state = availableStates.find((s) => s.name === value);
+                      return state ? (
                         <span>{state.name}</span>
-                        <Check
-                          className={cn(
-                            "h-4 w-4",
-                            selectedState?.id === state.id
-                              ? "opacity-100"
-                              : "opacity-0"
-                          )}
-                        />
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </CommandList>
-                <ScrollBar orientation="vertical" />
-              </ScrollArea>
-            </Command>
-          </PopoverContent>
-        </Popover>
+                      ) : (
+                        <span className="text-muted-foreground">Select State...</span>
+                      );
+                    }}
+                  </ComboboxValue>
+                  <ComboboxIcon />
+                </Button>
+              }
+            />
+          </div>
+          <ComboboxContent className="w-[300px] overflow-hidden">
+            <ComboboxInput
+              placeholder="Search state..."
+              value={stateSearchValue}
+              onChange={(e) => setStateSearchValue(e.target.value)}
+              className={cn([
+                "border-0 shadow-none rounded-none",
+                "focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-border",
+              ])}
+            />
+            <ComboboxSeparator />
+            <ComboboxEmpty className="text-center px-2 pt-4 pb-2">
+              No state found.
+            </ComboboxEmpty>
+            <ScrollArea className="h-[300px]">
+              <ComboboxList className="overflow-hidden my-1">
+                {filteredStates.map((state) => (
+                  <ComboboxItem
+                    key={state.id}
+                    value={state.name}
+                    className="flex items-center justify-between ps-3 pe-8"
+                  >
+                    <span className="flex-1 text-sm">{state.name}</span>
+                    <ComboboxItemIndicator className="start-auto end-2.5" />
+                  </ComboboxItem>
+                ))}
+              </ComboboxList>
+            </ScrollArea>
+          </ComboboxContent>
+        </Combobox>
       )}
     </div>
   );

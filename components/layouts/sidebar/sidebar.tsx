@@ -1,5 +1,5 @@
 "use client";
-
+import { TrendingUp } from "lucide-react"
 import React, { useState } from "react";
 import { Folder, LogOut, LucideGem, Star } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -18,9 +18,9 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { sidebarItems } from "../modules/dashboard/dummy-data";
-import LogoutModal from "../modules/auth/logout-modal";
+import { ScrollArea } from "@/components/ui/base-scroll-area";
+import { sidebarItems } from "./sidebaritems";
+import LogoutModal from "../../modules/auth/logout-modal";
 
 const AppSidebar = () => {
   const pathname = usePathname();
@@ -40,11 +40,11 @@ const AppSidebar = () => {
       <Sidebar collapsible="icon" className="border-0">
         <SidebarHeader>
           <div className="flex items-center gap-2 py-3 px-2">
-            <div className="bg-primary flex h-8 w-8 items-center justify-center rounded-lg">
-              <Folder className="size-4 text-white" />
+            <div className={`${state === "expanded" ? "bg-primary" : "bg-transparent"} flex h-8 w-8 items-center justify-center rounded-lg`}>
+              <TrendingUp className="size-4 text-white" />
             </div>
             {state === "expanded" && (
-              <span className="text-lg font-semibold">File Manager</span>
+              <span className="text-lg font-semibold">Expense Tracker</span>
             )}
           </div>
         </SidebarHeader>

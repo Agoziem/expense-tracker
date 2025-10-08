@@ -34,7 +34,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/base-select";
+} from "@/components/ui/select";
 
 // Custom Components
 import AvatarUploader from "@/components/custom/avatar-upload";
@@ -242,7 +242,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ className }) => {
                       key={field.value} // To reset when value changes
                     >
                       <FormControl>
-                        <SelectTrigger>
+                        <SelectTrigger className="w-full">
                           <SelectValue placeholder="Select your gender" />
                         </SelectTrigger>
                       </FormControl>

@@ -194,7 +194,7 @@ export const useEnable2FA = () => {
   return useMutation({
     mutationFn: async (): Promise<BaseResponse> => {
       const response = await AxiosInstanceWithToken.get(
-        "/api/v1/auth/enable-2FA"
+        "/api/v1/2fa/enable-2FA"
       );
       return response.data;
     },
@@ -217,7 +217,7 @@ export const useVerify2FACode = () => {
   return useMutation({
     mutationFn: async (token: string): Promise<LoginSuccessResponse> => {
       const response = await AxiosInstanceWithToken.get(
-        `/api/v1/auth/verify-2FA-code/${token}`
+        `/api/v1/2fa/verify-2FA-code/${token}`
       );
       return response.data;
     },
@@ -235,7 +235,7 @@ export const useResend2FACode = () => {
     ): Promise<BaseResponse> => {
       const validatedData = TwoFactorConfirmationCreateSchema.parse(data);
       const response = await AxiosInstanceWithToken.post(
-        "/api/v1/auth/resend-2FA-code",
+        "/api/v1/2fa/resend-2FA-code",
         validatedData
       );
       return response.data;
@@ -250,7 +250,7 @@ export const useDisable2FA = () => {
   return useMutation({
     mutationFn: async (): Promise<BaseResponse> => {
       const response = await AxiosInstanceWithToken.get(
-        "/api/v1/auth/disable-2FA"
+        "/api/v1/2fa/disable-2FA"
       );
       return response.data;
     },
