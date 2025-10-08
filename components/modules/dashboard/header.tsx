@@ -40,7 +40,7 @@ const Header = ({
           <SelectTrigger className="w-[100px]">
             <SelectValue placeholder="Month" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="max-h-[300px]">
             {Array.from({ length: 12 }, (_, i) => (
               <SelectItem key={i} value={(i + 1).toString()}>
                 {new Date(0, i).toLocaleString("en-US", { month: "long" })}
@@ -55,7 +55,7 @@ const Header = ({
           <SelectTrigger className="w-[100px]">
             <SelectValue placeholder="Year" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="max-h-[300px]">
             {Array.from({ length: 5 }, (_, i) => (
               <SelectItem key={i} value={(year - i).toString()}>
                 {year - i}

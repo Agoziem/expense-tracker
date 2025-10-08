@@ -138,7 +138,7 @@ function CountrySelect({ disabled, value: selectedCountry, options: countryList,
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
           className={cn([
-            'border-0 shadow-none rounded-none',
+            'border-0 shadow-none rounded-none bg-popover',
             'focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-border',
           ])}
         />

@@ -223,7 +223,8 @@ const LocationSelector = ({
             value={countrySearchValue}
             onChange={(e) => setCountrySearchValue(e.target.value)}
             className={cn([
-              "border-0 shadow-none rounded-none",
+              "border-0 shadow-none rounded-none bg-popover",
+                "focus-visible:ring-0 focus-visible:ring-offs",
               "focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-border",
             ])}
           />
@@ -292,7 +293,7 @@ const LocationSelector = ({
               value={stateSearchValue}
               onChange={(e) => setStateSearchValue(e.target.value)}
               className={cn([
-                "border-0 shadow-none rounded-none",
+                "border-0 shadow-none rounded-none bg-popover",
                 "focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-border",
               ])}
             />

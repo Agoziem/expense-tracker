@@ -175,10 +175,14 @@ const ExpensesForm = ({ currentExpense, onSuccess }: ExpensesFormProps) => {
               <FormLabel>Date</FormLabel>
               <FormControl>
                 <DatePicker
-                  value={field.value ? new Date(field.value) : undefined}
+                  value={field.value ? new Date(field.value + 'T00:00:00') : undefined}
                   onChange={(date) => {
                     if (date) {
-                      field.onChange(date.toISOString().split("T")[0]);
+                      // Use local date methods to avoid timezone issues
+                      const year = date.getFullYear();
+                      const month = String(date.getMonth() + 1).padStart(2, '0');
+                      const day = String(date.getDate()).padStart(2, '0');
+                      field.onChange(`${year}-${month}-${day}`);
                     }
                   }}
                 />

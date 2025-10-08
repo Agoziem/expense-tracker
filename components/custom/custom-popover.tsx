@@ -5,8 +5,7 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverContentProps,
-} from '@/components/ui/base-popover';
+} from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 
 export interface CustomPopoverProps {
@@ -14,11 +13,10 @@ export interface CustomPopoverProps {
   children: React.ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
-  side?: PopoverContentProps['side'];
-  align?: PopoverContentProps['align'];
-  sideOffset?: PopoverContentProps['sideOffset'];
-  alignOffset?: PopoverContentProps['alignOffset'];
-  showArrow?: boolean;
+  side?: 'top' | 'right' | 'bottom' | 'left';
+  align?: 'start' | 'center' | 'end';
+  sideOffset?: number;
+  alignOffset?: number;
   className?: string;
   contentClassName?: string;
   disabled?: boolean;
@@ -33,20 +31,13 @@ export function CustomPopover({
   align = 'center',
   sideOffset = 8,
   alignOffset = 0,
-  showArrow = true,
   className,
   contentClassName,
   disabled = false,
 }: CustomPopoverProps) {
   return (
     <Popover open={open} onOpenChange={onOpenChange}>
-      <PopoverTrigger
-        disabled={disabled}
-        className={cn(
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
-          className
-        )}
-      >
+      <PopoverTrigger asChild disabled={disabled}>
         {trigger}
       </PopoverTrigger>
       <PopoverContent
@@ -54,7 +45,6 @@ export function CustomPopover({
         align={align}
         sideOffset={sideOffset}
         alignOffset={alignOffset}
-        showArrow={showArrow}
         className={cn('p-4', contentClassName)}
       >
         {children}
@@ -62,5 +52,4 @@ export function CustomPopover({
     </Popover>
   );
 }
-
 

@@ -5,7 +5,9 @@ import {
   Layers2Icon,
   LogOutIcon,
   PinIcon,
+  Settings,
   ShieldCheck,
+  User,
   UserPenIcon,
 } from "lucide-react";
 
@@ -79,7 +81,7 @@ export default function AvatarDropdownComponent({
           <DropdownMenuGroup>
             <DropdownMenuItem asChild>
               <Link href="/profile">
-                <BoltIcon
+                <User
                   size={16}
                   className="opacity-60 hover:text-primary"
                   aria-hidden="true"
@@ -88,13 +90,13 @@ export default function AvatarDropdownComponent({
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="/profile">
-                <Layers2Icon
+              <Link href="/manage-expenses">
+                <Settings
                   size={16}
                   className="opacity-60 hover:text-primary"
                   aria-hidden="true"
                 />
-                <span>Storage Options</span>
+                <span>Manage Expenses</span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => setOpen2FAModal(true)}>

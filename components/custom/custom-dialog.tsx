@@ -10,19 +10,19 @@ import {
   DialogFooter,
   DialogTrigger,
   DialogClose,
-  DialogAction,
-} from "@/components/ui/base-dialog";
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Spinner } from "../ui/spinner";
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+import { ScrollArea } from "../ui/base-scroll-area";
 
 export interface CustomDialogProps {
   trigger?: React.ReactNode;
   children: React.ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
-  showDismissButton?: boolean;
-  showBackdrop?: boolean;
-  fullscreen?: boolean;
+  showCloseButton?: boolean;
   className?: string;
 }
 
@@ -31,21 +31,19 @@ export function CustomDialog({
   children,
   open,
   onOpenChange,
-  showDismissButton = true,
-  showBackdrop = true,
-  fullscreen = false,
+  showCloseButton = true,
   className,
 }: CustomDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      {trigger && <DialogTrigger>{trigger}</DialogTrigger>}
-      <DialogContent
-        showDismissButton={showDismissButton}
-        showBackdrop={showBackdrop}
-        fullscreen={fullscreen}
-        className={className}
-      >
-        {children}
+      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
+      <DialogContent showCloseButton={showCloseButton} className={className}>
+        <VisuallyHidden.Root>
+          <DialogTitle>Dialog</DialogTitle>
+        </VisuallyHidden.Root>
+        <div className="grid gap-4 py-4">
+          <ScrollArea className="max-h-[80vh] pe-3.5">{children}</ScrollArea>
+        </div>
       </DialogContent>
     </Dialog>
   );
@@ -60,7 +58,7 @@ export interface StandardDialogProps {
   footer?: React.ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
-  showDismissButton?: boolean;
+  showCloseButton?: boolean;
   className?: string;
   size?: "sm" | "md" | "lg" | "xl" | "full";
 }
@@ -73,7 +71,7 @@ export function StandardDialog({
   footer,
   open,
   onOpenChange,
-  showDismissButton = true,
+  showCloseButton = true,
   className,
   size = "md",
 }: StandardDialogProps) {
@@ -87,16 +85,18 @@ export function StandardDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      {trigger && <DialogTrigger>{trigger}</DialogTrigger>}
+      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent
-        showDismissButton={showDismissButton}
+        showCloseButton={showCloseButton}
         className={cn(sizeClasses[size], className)}
       >
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
-        <div className="py-4">{children}</div>
+        <div className="grid gap-4 py-4">
+          <ScrollArea className="max-h-[80vh] pe-3.5  ">{children}</ScrollArea>
+        </div>
         {footer && <DialogFooter>{footer}</DialogFooter>}
       </DialogContent>
     </Dialog>
@@ -142,26 +142,29 @@ export function ConfirmDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      {trigger && <DialogTrigger>{trigger}</DialogTrigger>}
-      <DialogContent showDismissButton={false} className="max-w-md">
+      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
+      <DialogContent showCloseButton={false} className="max-w-md">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
         <DialogFooter>
-          <DialogClose onClick={handleCancel} disabled={loading}>
+          <Button variant="outline" onClick={handleCancel} disabled={loading}>
             {cancelText}
-          </DialogClose>
-          <DialogAction
+          </Button>
+          <Button
             onClick={handleConfirm}
             disabled={loading}
+            variant={
+              variant === "danger"
+                ? "destructive"
+                : variant === "warning"
+                ? "primary"
+                : "primary"
+            }
             className={cn(
-              variant === "danger" &&
-                "bg-destructive text-destructive-foreground hover:bg-destructive/90",
               variant === "warning" &&
-                "bg-orange-500 text-white hover:bg-orange-600",
-              variant === "default" &&
-                "bg-primary text-primary-foreground hover:bg-primary/90"
+                "bg-orange-500 text-white hover:bg-orange-600"
             )}
           >
             {loading ? (
@@ -172,7 +175,7 @@ export function ConfirmDialog({
             ) : (
               confirmText
             )}
-          </DialogAction>
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -230,7 +233,7 @@ export function FormDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      {trigger && <DialogTrigger>{trigger}</DialogTrigger>}
+      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent className={cn(sizeClasses[size])}>
         <form onSubmit={handleSubmit}>
           <DialogHeader>
@@ -241,20 +244,17 @@ export function FormDialog({
           </DialogHeader>
           <div className="py-4">{children}</div>
           <DialogFooter>
-            <DialogClose
+            <Button
               type="button"
+              variant="outline"
               onClick={handleCancel}
               disabled={loading}
             >
               {cancelText}
-            </DialogClose>
-            <DialogAction
-              type="submit"
-              disabled={loading || disabled}
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
-            >
+            </Button>
+            <Button type="submit" disabled={loading || disabled}>
               {loading ? "Loading..." : submitText}
-            </DialogAction>
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
@@ -300,23 +300,17 @@ export function AlertDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      {trigger && <DialogTrigger>{trigger}</DialogTrigger>}
-      <DialogContent
-        className={cn("max-w-md", variantStyles[variant])}
-        showDismissButton={false}
-      >
+      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
+      <DialogContent className={cn("max-w-md", variantStyles[variant])}>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
         {children && <div className="py-4">{children}</div>}
         <DialogFooter>
-          <DialogAction
-            onClick={handleClose}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 w-full"
-          >
+          <Button onClick={handleClose} className="w-full">
             {closeText}
-          </DialogAction>
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

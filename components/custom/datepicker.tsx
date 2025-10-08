@@ -39,9 +39,10 @@ export default function DatePicker({ value, onChange, disabled }: DatePickerProp
           mode="single"
           selected={value}
           onSelect={onChange}
-          initialFocus
         />
       </PopoverContent>
     </Popover>
   )
 }
+
+
