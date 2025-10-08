@@ -110,7 +110,7 @@ const TrendChart = () => {
               </EmptyMedia>
               <EmptyTitle>Failed to Load Chart</EmptyTitle>
               <EmptyDescription>
-                We couldn't load your spending trends. Please try again later.
+                We couldn&apos;t load your spending trends. Please try again later.
               </EmptyDescription>
             </EmptyHeader>
           </Empty>

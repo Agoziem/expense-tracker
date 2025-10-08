@@ -117,7 +117,7 @@ const ProfileInfoSection = () => {
               </EmptyMedia>
               <EmptyTitle>No User Data</EmptyTitle>
               <EmptyDescription>
-                We couldn't find any user information. Please try again later.
+                We couldn&apos;t find any user information. Please try again later.
               </EmptyDescription>
             </EmptyHeader>
             <EmptyContent>

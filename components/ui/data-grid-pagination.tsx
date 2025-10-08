@@ -144,7 +144,7 @@ function DataGridPagination(props: DataGridPaginationProps) {
             <div className="text-sm text-muted-foreground">{mergedProps.rowsPerPageLabel}</div>
             <Select
               value={`${pageSize}`}
-              indicatorPosition="right"
+              // indicatorPosition="right"
               onValueChange={(value) => {
                 const newPageSize = Number(value);
                 table.setPageSize(newPageSize);

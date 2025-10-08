@@ -28,7 +28,7 @@ const Header = ({
           Welcome, {userProfile?.first_name || "User"}
         </h1>
         <p className="text-muted-foreground text-sm lg:text-base">
-          Here's a summary of your recent financial activities.
+          Here&apos;s a summary of your recent financial activities.
         </p>
       </div>
 

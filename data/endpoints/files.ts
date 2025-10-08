@@ -7,7 +7,7 @@ export const uploadFile = async (file: File) => {
   formData.append("key", file.name);
   formData.append("replace", "true");
   const response = await AxiosInstancemultipartWithToken.post(
-    "files/upload/",
+    "/api/v1/file/upload/",
     formData
   );
   return response.data;
@@ -22,7 +22,7 @@ export const uploadMultipleFiles = async (files: File[]) => {
     formData.append("replace", "true");
   });
   const response = await AxiosInstancemultipartWithToken.post(
-    "files/upload-multiple/",
+    "/api/v1/file/upload-multiple/",
     formData
   );
   return response.data;
@@ -30,7 +30,7 @@ export const uploadMultipleFiles = async (files: File[]) => {
 
 // delete file
 export const useDeleteFile = async (file_url: string) => {
-  const response = await AxiosInstancemultipartWithToken.delete("files/delete/", {
+  const response = await AxiosInstancemultipartWithToken.delete("/api/v1/file/delete/", {
     data: {
       file_url,
     },

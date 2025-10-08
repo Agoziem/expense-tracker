@@ -96,7 +96,7 @@ const CategoryChart = () => {
               </EmptyMedia>
               <EmptyTitle>Failed to Load Chart</EmptyTitle>
               <EmptyDescription>
-                We couldn't load your category breakdown. Please try again
+                We couldn&apos;t load your category breakdown. Please try again
                 later.
               </EmptyDescription>
             </EmptyHeader>
