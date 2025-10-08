@@ -46,7 +46,7 @@ const Navbar = () => {
       </div>
 
       <div className="ml-auto flex items-center gap-3">
-        <ThemeSwitcherComponent />
+        {/* <ThemeSwitcherComponent /> */}
         <NotificationBtn />
         <AvatarDropdownComponent />
       </div>

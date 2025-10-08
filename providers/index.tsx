@@ -11,7 +11,7 @@ const Providers: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       {/* <NuqsAdapter> */}
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
           >
