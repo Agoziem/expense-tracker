@@ -36,7 +36,7 @@ import { TrendingUp, BarChart3 } from "lucide-react";
 const TrendChart = () => {
   const [period_type, setPeriodType] = useState<
     "day" | "week" | "month" | "year"
-  >("month");
+  >("week");
   const [limit, setLimit] = useState<number>(5);
 
   const {
@@ -228,10 +228,8 @@ const TrendChart = () => {
           <AreaChart
             data={chartData}
             margin={{
-              left: 12,
+              left: -20,
               right: 12,
-              top: 12,
-              bottom: 12,
             }}
           >
             <defs>
