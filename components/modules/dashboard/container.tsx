@@ -23,6 +23,7 @@ const DashboardContainer = () => {
           <CategoryChart />
         </div>
       </div>
+
       <ExpenseTable />
     </div>
   );

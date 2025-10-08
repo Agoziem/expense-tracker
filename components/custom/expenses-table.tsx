@@ -23,7 +23,7 @@ import { DataGrid } from "@/components/ui/data-grid";
 import { DataGridColumnHeader } from "@/components/ui/data-grid-column-header";
 import { DataGridPagination } from "@/components/ui/data-grid-pagination";
 import { DataGridTable } from "@/components/ui/data-grid-table";
-import { ScrollArea, ScrollBar } from "@/components/ui/base-scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Empty,
@@ -88,8 +88,11 @@ export default function ExpenseTable() {
     ExpenseResponseModel | undefined
   >(undefined);
   const { data: categoriesData } = useGetExpenseCategories();
-  const { data: expensesData, isLoading: expensesLoading, refetch: refetchExpenses } =
-    useGetExpenses(queryParams);
+  const {
+    data: expensesData,
+    isLoading: expensesLoading,
+    refetch: refetchExpenses,
+  } = useGetExpenses(queryParams);
   const { mutateAsync: deleteExpense, isLoading: isDeleting } =
     useDeleteExpense();
 
@@ -321,7 +324,11 @@ export default function ExpenseTable() {
         ),
         cell: ({ row }) => {
           return (
-            <Badge className={`${getCategoryColor(row.original.category)} text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1`}>
+            <Badge
+              className={`${getCategoryColor(
+                row.original.category
+              )} text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1`}
+            >
               {row.original.category}
             </Badge>
           );
@@ -365,7 +372,11 @@ export default function ExpenseTable() {
           return (
             <CustomPopover
               trigger={
-                <Button variant="ghost" size="sm" className="h-7 w-7 sm:h-8 sm:w-8 p-0">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-7 w-7 sm:h-8 sm:w-8 p-0"
+                >
                   <MoreVertical className="h-3 w-3 sm:h-4 sm:w-4" />
                 </Button>
               }
@@ -451,7 +462,11 @@ export default function ExpenseTable() {
             <CardToolbar className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 flex-wrap">
               {/* Add Expense Button - Only show when there are expenses */}
               {expenses.length > 0 && (
-                <Button size="sm" onClick={openAddDialog} className="gap-1 text-xs sm:text-sm w-full sm:w-auto">
+                <Button
+                  size="sm"
+                  onClick={openAddDialog}
+                  className="gap-1 text-xs sm:text-sm w-full sm:w-auto"
+                >
                   <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
                   Add Expense
                 </Button>
@@ -508,15 +523,18 @@ export default function ExpenseTable() {
               )}
             </CardToolbar>
           </CardHeader>
-          <CardTable>
-            <ScrollArea>
+
+          <CardTable >
+            <div  className="overflow-auto">
               {!expensesLoading && expenses.length === 0 ? (
                 <Empty className="my-8 sm:my-12">
                   <EmptyHeader>
                     <EmptyMedia variant="icon">
                       <Receipt className="h-5 w-5 sm:h-6 sm:w-6" />
                     </EmptyMedia>
-                    <EmptyTitle className="text-sm sm:text-base">No Expenses Found</EmptyTitle>
+                    <EmptyTitle className="text-sm sm:text-base">
+                      No Expenses Found
+                    </EmptyTitle>
                     <EmptyDescription className="text-xs sm:text-sm">
                       {searchQuery || selectedCategory !== "all"
                         ? "Try adjusting your search or filters"
@@ -537,9 +555,10 @@ export default function ExpenseTable() {
               ) : (
                 <DataGridTable />
               )}
-              <ScrollBar orientation="horizontal" />
-            </ScrollArea>
+              {/* <ScrollBar orientation="horizontal" /> */}
+            </div>
           </CardTable>
+
           <CardFooter>
             <DataGridPagination />
           </CardFooter>
